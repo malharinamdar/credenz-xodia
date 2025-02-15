@@ -12,11 +12,11 @@ FPS = 60
 WHITE = (255, 255, 255)
 
 # Load images (placeholders for now, replace with pixel art assets)
-background = pygame.image.load("images/bg.jpg")
-slingshot = pygame.image.load("images/sling.png")
-bird = pygame.image.load("images/bird.png")
-pig = pygame.image.load("images/pig.png")
-wood_block = pygame.image.load("images/block.png")
+background = pygame.image.load("/Users/malhar.inamdar/Downloads/credenz-xodia/UI/images/bg.jpg")
+slingshot = pygame.image.load("/Users/malhar.inamdar/Downloads/credenz-xodia/UI/images/sling.png")
+bird = pygame.image.load("/Users/malhar.inamdar/Downloads/credenz-xodia/UI/images/bird.png")
+pig = pygame.image.load("/Users/malhar.inamdar/Downloads/credenz-xodia/UI/images/pig.png")
+wood_block = pygame.image.load("/Users/malhar.inamdar/Downloads/credenz-xodia/UI/images/block.png")
 
 # Scale images for pixelated look
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
