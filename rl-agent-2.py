@@ -242,7 +242,7 @@ def train_model():
     model = PPO(
         "MlpPolicy",
         env,
-        learning_rate=0.01,
+        learning_rate=0.001,
         n_steps=1024,
         batch_size=256,
         n_epochs=10,

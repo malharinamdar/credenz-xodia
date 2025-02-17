@@ -13,15 +13,13 @@ FPS = 60
 SLINGSHOT_POS = (100, 270)
 
 # Load images (update paths as needed)
-l1_background = pygame.image.load("UI/images/bg.jpg")
-l2_background = pygame.image.load("UI/images/bg_2.png")
+background = pygame.image.load("UI/images/bg.jpg")
 slingshot = pygame.image.load("UI/images/sling.png")
 bird_img = pygame.image.load("UI/images/bird.png")
 pig_img = pygame.image.load("UI/images/pig.png")
 
 # Scale images
-l1_background = pygame.transform.scale(l1_background, (WIDTH, HEIGHT))
-l2_background = pygame.transform.scale(l2_background, (WIDTH, HEIGHT))
+background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 slingshot = pygame.transform.scale(slingshot, (60, 120))
 
 
@@ -96,7 +94,6 @@ class Pig:
         self.x = random.randint(min_x, max_x)
         self.y = random.randint(280, 380)  # Increased vertical range
 
-
 class AngryBirdsEnv(gym.Env):
     def __init__(self):
         super().__init__()
@@ -107,18 +104,10 @@ class AngryBirdsEnv(gym.Env):
         self.pig = Pig(600, 320)
 
         # Enhanced observation space to include trajectory information
-        self.observation_space = spaces.Box(
-            low=np.array([0, 0, -30, -30, 0, 0, 0, 0, 0, -np.pi], dtype=np.float32),
-            high=np.array([WIDTH, HEIGHT, 30, 30, WIDTH, HEIGHT, WIDTH, HEIGHT, HEIGHT, np.pi], dtype=np.float32),
-            dtype=np.float32
-        )
+        self.observation_space = None
 
         # Expanded action space for more varied trajectories
-        self.action_space = spaces.Box(
-            low=np.array([1, 1], dtype=np.float32),
-            high=np.array([15, 15], dtype=np.float32),  # Increased maximum power
-            dtype=np.float32
-        )
+        self.action_space = None
 
         self.clock = pygame.time.Clock()
         self.current_step = 0
@@ -138,87 +127,17 @@ class AngryBirdsEnv(gym.Env):
         self.min_distance = np.sqrt(dx * dx + dy * dy)
 
         return self._get_obs(), {}
-
-    def _get_obs(self):
-        dx = self.pig.x - self.bird.x
-        dy = self.pig.y - self.bird.y
-
-        return np.array([
-            self.bird.x,
-            self.bird.y,
-            self.bird.velocity[0],
-            self.bird.velocity[1],
-            self.pig.x,
-            self.pig.y,
-            dx,
-            dy,
-            self.bird.max_height,  # Include maximum height reached
-            self.bird.launch_angle  # Include launch angle
-        ], dtype=np.float32)
-
-    def step(self, action):
-        self.current_step += 1
-        prev_distance = np.sqrt((self.pig.x - self.bird.x) ** 2 + (self.pig.y - self.bird.y) ** 2)
-
-        if not self.bird.launched:
-            power_x, power_y = action
-            self.bird.launch(power_x, power_y)
-
-        self.bird.update()
-
-        # Calculate distances and current state
-        dx = self.pig.x - self.bird.x
-        dy = self.pig.y - self.bird.y
-        current_distance = np.sqrt(dx * dx + dy * dy)
-        self.min_distance = min(self.min_distance, current_distance)
-
-        # Enhanced reward system
-        reward = 0
-        done = False
-
-        # Hit reward
-        if current_distance < 40:
-            # Bonus for interesting trajectories
-            height_bonus = abs(self.bird.max_height - SLINGSHOT_POS[1]) / HEIGHT
-            reward = 200.0 + height_bonus * 50
-            done = True
-        else:
-            # Progressive rewards
-            distance_improvement = prev_distance - current_distance
-            reward += distance_improvement * 0.5
-
-            # Trajectory variety rewards
-            height_variety = abs(self.bird.max_height - SLINGSHOT_POS[1]) / HEIGHT
-            reward += height_variety * 2
-
-            # Velocity variety reward
-            velocity_magnitude = np.sqrt(self.bird.velocity[0] ** 2 + self.bird.velocity[1] ** 2)
-            reward += min(velocity_magnitude * 0.1, 5)  # Cap velocity reward
-
-            # Penalize staying too close to the ground or going too high
-            if self.bird.y < 50 or self.bird.y > HEIGHT - 30:
-                reward -= 1.0
-
-        # Boundary conditions
-        if (self.bird.x < 0 or self.bird.x > WIDTH or
-                self.bird.y < 0 or self.bird.y > HEIGHT):
-            reward = -5.0
-            done = True
-
-        # Max steps reached
-        if self.current_step >= self.max_steps:
-            done = True
-
-        return self._get_obs(), reward, done, False, {}
-
-    def render(self, level):
-        if level == 1:
-            self.screen.blit(l1_background, (0, 0))
-        else:
-
-            self.screen.blit(l2_background, (0, 0))
+    def render(self):
+        self.screen.blit(background, (0, 0))
         self.screen.blit(slingshot, SLINGSHOT_POS)
         self.bird.draw(self.screen)
         self.pig.draw(self.screen)
         pygame.display.flip()
         self.clock.tick(FPS)
+
+    def _get_obs(self): pass
+
+    def step(self, action): pass
+
+if __name__ == "__main__":
+    def train_model(): pass
