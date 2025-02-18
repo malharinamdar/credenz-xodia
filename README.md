@@ -12,7 +12,7 @@ The environment simulates an **Angry Birds**-style game where:
 ---
 
 ## 🏗 **Observation Space**
-The environment provides an **observation space** represented as a 10-dimensional vector:
+The environment provides an **observation space** represented as a 8-dimensional vector:
 
 | **Feature**         | **Description**                                   | **Range** |
 |---------------------|---------------------------------------------------|-----------|
