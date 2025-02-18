@@ -22,8 +22,6 @@ The environment provides an **observation space** represented as a 10-dimensiona
 | `velocity_y`       | Bird's y-axis velocity                            | `[-30, 30]` |
 | `pig_x`            | Pig's x-coordinate                                | `[0, 800]` |
 | `pig_y`            | Pig's y-coordinate                                | `[0, 450]` |
-| `dx`               | Horizontal distance to the pig (`pig_x - bird_x`) | `[0, 800]` |
-| `dy`               | Vertical distance to the pig (`pig_y - bird_y`)   | `[0, 450]` |
 | `max_height`       | Maximum height reached by the bird                | `[0, 450]` |
 | `launch_angle`     | Bird's launch angle (radians)                     | `[-π, π]` |
 
