@@ -56,10 +56,6 @@ Your RL agent earns **rewards** based on performance:
 
 ---
 
-## 🖥 **How to Run**
-Clone the repository and install dependencies:
+Good luck to all the participants!
 
-```bash
-git clone https://github.com/your-repo-name/angry-birds-rl.git
-cd angry-birds-rl
-pip install -r requirements.txt
+
